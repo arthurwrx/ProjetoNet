@@ -5,7 +5,7 @@ namespace WebApplication1.Data
 {
     public class DatabaseContext : DbContext
     {
-        public virtual DbSet<DiaColeta> DiaColeta { get; set; }
+        public virtual DbSet<ColetaModel> ColetaModels { get; set; }
         public virtual DbSet<LogNotificacoes> LogNotificacoes { get; set; }
         public virtual DbSet<Morador> Morador { get; set; }
         public virtual DbSet<Notificacao> Notificacao { get; set; }
@@ -21,7 +21,7 @@ namespace WebApplication1.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DiaColeta>(entity =>
+            modelBuilder.Entity<ColetaModel>(entity =>
             {
                 entity.ToTable("TB_DIA_COLETA");
                 entity.HasKey(e => e.DiaColetaId);

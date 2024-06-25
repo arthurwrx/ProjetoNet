@@ -42,26 +42,6 @@ namespace WebApplication1.Migrations
                     b.ToTable("TB_DIA_COLETA", (string)null);
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.LogNotificacoes", b =>
-                {
-                    b.Property<int>("LogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LogId"));
-
-                    b.Property<DateTime>("DataHora")
-                        .HasColumnType("TIMESTAMP(7)");
-
-                    b.Property<string>("TipoOperacao")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.HasKey("LogId");
-
-                    b.ToTable("TB_LOG_NOTIFICACOES", (string)null);
-                });
-
             modelBuilder.Entity("WebApplication1.Models.Morador", b =>
                 {
                     b.Property<int>("MoradorId")

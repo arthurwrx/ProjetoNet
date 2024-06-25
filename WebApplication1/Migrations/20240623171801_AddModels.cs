@@ -26,20 +26,6 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TB_LOG_NOTIFICACOES",
-                columns: table => new
-                {
-                    LogId = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    TipoOperacao = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    DataHora = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TB_LOG_NOTIFICACOES", x => x.LogId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TB_MORADOR",
                 columns: table => new
                 {

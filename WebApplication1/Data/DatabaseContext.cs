@@ -5,12 +5,12 @@ namespace WebApplication1.Data
 {
     public class DatabaseContext : DbContext
     {
-        public virtual DbSet<ColetaModel> ColetaModels { get; set; }
-        public virtual DbSet<Morador> Morador { get; set; }
-        public virtual DbSet<Notificacao> Notificacao { get; set; }
-        public virtual DbSet<TipoResiduos> TipoResiduos { get; set; }
+        public virtual DbSet<DiaColeta> Coletas { get; set; }
+        public virtual DbSet<Morador> Moradores { get; set; }
+        public virtual DbSet<Notificacao> Notificacoes { get; set; }
+        public virtual DbSet<TipoResiduos> Residuos { get; set; }
 
-        public DatabaseContext(DbContextOptions options) : base(options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
 
@@ -20,30 +20,43 @@ namespace WebApplication1.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ColetaModel>(entity =>
+            // Configuração da entidade DiaColeta
+            modelBuilder.Entity<DiaColeta>(entity =>
             {
                 entity.ToTable("TB_DIA_COLETA");
-                entity.HasKey(e => e.DiaColetaId);
+                entity.HasKey(e => e.DiaDeColetaId);
             });
 
-            modelBuilder.Entity<LogNotificacoes>(entity =>
-            {
-                entity.ToTable("TB_LOG_NOTIFICACOES");
-                entity.HasKey(e => e.LogId);
-            });
-
+            // Configuração da entidade Morador
             modelBuilder.Entity<Morador>(entity =>
             {
                 entity.ToTable("TB_MORADOR");
                 entity.HasKey(e => e.MoradorId);
             });
 
+            // Configuração da entidade Notificacao
             modelBuilder.Entity<Notificacao>(entity =>
             {
                 entity.ToTable("TB_NOTIFICACAO");
                 entity.HasKey(e => e.NotificacaoId);
+
+                entity.HasOne(e => e.Morador)
+                    .WithMany()
+                    .HasForeignKey(e => e.MoradorId)
+                    .IsRequired();
+
+                entity.HasOne(e => e.DiaColeta)
+                    .WithMany()
+                    .HasForeignKey(e => e.DiaColetaId)
+                    .IsRequired();
+
+                entity.HasOne(e => e.TipoResiduos)
+                    .WithMany()
+                    .HasForeignKey(e => e.TipoResiduosId)
+                    .IsRequired();
             });
 
+            // Configuração da entidade TipoResiduos
             modelBuilder.Entity<TipoResiduos>(entity =>
             {
                 entity.ToTable("TB_TIPO_RESIDUOS");

@@ -2,6 +2,7 @@
 using WebApplication1.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using WebApplication1.Data;
 
 
 namespace WebApplication1.Controllers
@@ -9,10 +10,12 @@ namespace WebApplication1.Controllers
     public class ColetaController : Controller
     {
         private List<ColetaModel> _coleta;
+        private readonly DatabaseContext _databaseContext;
 
-        public ColetaController()
+        public ColetaController(DatabaseContext databaseContext)
         {
             _coleta = GerarColetas();
+            _databaseContext = databaseContext;
         }
 
         public IActionResult Index()

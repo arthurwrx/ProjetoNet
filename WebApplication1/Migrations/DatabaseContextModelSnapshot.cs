@@ -24,11 +24,11 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.DiaColeta", b =>
                 {
-                    b.Property<int>("DiaColetaId")
+                    b.Property<int>("DiaDeColetaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiaColetaId"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiaDeColetaId"));
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -37,7 +37,7 @@ namespace WebApplication1.Migrations
                     b.Property<DateTime>("DataHora")
                         .HasColumnType("TIMESTAMP(7)");
 
-                    b.HasKey("DiaColetaId");
+                    b.HasKey("DiaDeColetaId");
 
                     b.ToTable("TB_DIA_COLETA", (string)null);
                 });
@@ -74,6 +74,9 @@ namespace WebApplication1.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotificacaoId"));
 
+                    b.Property<int>("DiaColetaId")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
@@ -82,11 +85,23 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<int>("MoradorId")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<int>("TipoResiduosId")
+                        .HasColumnType("NUMBER(10)");
+
                     b.HasKey("NotificacaoId");
+
+                    b.HasIndex("DiaColetaId");
+
+                    b.HasIndex("MoradorId");
+
+                    b.HasIndex("TipoResiduosId");
 
                     b.ToTable("TB_NOTIFICACAO", (string)null);
                 });
@@ -106,6 +121,33 @@ namespace WebApplication1.Migrations
                     b.HasKey("TipoResiduosId");
 
                     b.ToTable("TB_TIPO_RESIDUOS", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Notificacao", b =>
+                {
+                    b.HasOne("WebApplication1.Models.DiaColeta", "DiaColeta")
+                        .WithMany()
+                        .HasForeignKey("DiaColetaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Models.Morador", "Morador")
+                        .WithMany()
+                        .HasForeignKey("MoradorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Models.TipoResiduos", "TipoResiduos")
+                        .WithMany()
+                        .HasForeignKey("TipoResiduosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DiaColeta");
+
+                    b.Navigation("Morador");
+
+                    b.Navigation("TipoResiduos");
                 });
 #pragma warning restore 612, 618
         }

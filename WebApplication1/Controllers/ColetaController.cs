@@ -17,7 +17,17 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_coleta);
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View(_coleta);
+        }
+        [HttpPost]
+        public IActionResult Create(ColetaModel coletaModel)
+        {
+            return View(_coleta);
         }
 
         private List<ColetaModel> GerarColetas()

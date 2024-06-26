@@ -1,9 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Principal";
+    @model IEnumerable<ColetaModel>
 }
 
 <h1>Coletas</h1>
-<p></p>
+
+<p>
+    <a asp-action="Create" asp-asp-controller="Coletas">Nova Coleta</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -14,23 +18,25 @@
         </tr>
     </thead>
     <tbody>
+        @foreach (var coleta in Model){
         <tr>
             <td>
-                <label>#1</label>
+                <label>@coleta.DiaColetaId</label>
             </td>
             <td>
-                <label>Vila carrão</label>
+                <label>@coleta.Bairro</label>
             </td>
             <td>
-                <label>Reciclável</label>
+                <label>@coleta.TipoColeta</label>
             </td>
             <td>
                 <label>10:00</label>
             </td>
             <td>
-                <a href="#">Editar</a>
-                <a href="#">Excluir</a>
+                    <a asp-controller="Coleta" asp-action="Edit" asp-route-id="@coleta.DiaColetaId"> Editar</a>
+                    <a asp-controller="Coleta" asp-action="Delete" asp-route-id="@coleta.DiaColetaId"> Excluir</a>
             </td>
         </tr>
+        }
     </tbody>
 </table>

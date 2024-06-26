@@ -1,5 +1,6 @@
 ﻿namespace WebApplication1.Models
-{
+{   
+
     public class ColetaModel
     {
         public int DiaColetaId { get; set; }

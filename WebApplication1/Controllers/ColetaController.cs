@@ -6,9 +6,21 @@ using System.Collections.Generic;
 
 namespace WebApplication1.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ColetaController : Controller
     {
+
+        private readonly IColetaService _coletaService;
+        private readonly IMapper _mapper;
+
+
         private List<ColetaModel> _coleta;
+
+        public ColetaController(IColetaService coletaService)
+        {
+            _coleta = GerarColetas();
+        }
 
         public ColetaController()
         {

@@ -22,12 +22,12 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(_coleta);
+            return View();
         }
         [HttpPost]
         public IActionResult Create(ColetaModel coletaModel)
         {
-            return View(_coleta);
+            return View();
         }
 
         private List<ColetaModel> GerarColetas()

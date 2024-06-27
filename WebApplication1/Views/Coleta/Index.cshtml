@@ -3,7 +3,12 @@
     @model IEnumerable<ColetaModel>
 }
 
-<h1>Coletas</h1>
+<h1>Sistema de Agendamento de Coletas de Lixo</h1>
+
+@if (!string.IsNullOrEmpty((String)TempData["mensagemSucesso"]))
+{
+    <div class="alert alert-warning" role="alert">@TempData["mensagemSucesso"]</div>
+}
 
 <p>
     <a asp-action="Create" asp-asp-controller="Coletas">Nova Coleta</a>

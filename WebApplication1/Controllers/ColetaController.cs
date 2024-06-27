@@ -27,7 +27,10 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult Create(ColetaModel coletaModel)
         {
-            return View();
+
+            TempData["mensagemSucesso"] = "Cliente cadastrado com sucesso";
+
+            return RedirectToAction(nameof(Index));
         }
 
         private List<ColetaModel> GerarColetas()

@@ -5,7 +5,8 @@ namespace WebApplication1.Data
 {
     public class DatabaseContext : DbContext
     {
-        public virtual DbSet<DiaColeta> Coletas { get; set; }
+        public virtual DbSet<DiaColeta> DiaColeta { get; set; }
+        public virtual DbSet<ColetaModel> Coletas { get; set; }
         public virtual DbSet<Morador> Moradores { get; set; }
         public virtual DbSet<Notificacao> Notificacoes { get; set; }
         public virtual DbSet<TipoResiduos> Residuos { get; set; }

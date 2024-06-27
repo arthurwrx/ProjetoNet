@@ -3,19 +3,25 @@ using WebApplication1.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebApplication1.Data;
+using AutoMapper;
+using WebApplication1.Services;
 
 
 namespace WebApplication1.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ColetaController : Controller
     {
+        private readonly IColetaService _coletaService;
+        private readonly IMapper _mapper;
         private List<ColetaModel> _coleta;
-        private readonly DatabaseContext _databaseContext;
 
-        public ColetaController(DatabaseContext databaseContext)
+        public ColetaController(IMapper mapper, IColetaService coletaService)
         {
+            _mapper = mapper;
             _coleta = GerarColetas();
-            _databaseContext = databaseContext;
+            _coletaService = coletaService;
         }
 
         public IActionResult Index()
@@ -30,7 +36,10 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult Create(ColetaModel coletaModel)
         {
-            return View();
+
+            TempData["mensagemSucesso"] = "Cliente cadastrado com sucesso";
+
+            return RedirectToAction(nameof(Index));
         }
 
         private List<ColetaModel> GerarColetas()

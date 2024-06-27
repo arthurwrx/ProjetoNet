@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
+using WebApplication1.Data.Repository;
+using WebApplication1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,11 @@ var connectionString = builder.Configuration.GetConnectionString("DatabaseConnec
 builder.Services.AddDbContext<DatabaseContext>(
     opt => opt.UseOracle(connectionString).EnableSensitiveDataLogging(true)
 );
+#endregion
+
+#region Registro IServiceCollection
+builder.Services.AddScoped<IColetaRepository, ColetaRepository>();
+builder.Services.AddScoped<IColetaService, ColetaService>();
 #endregion
 
 var app = builder.Build();
@@ -32,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Coleta}/{action=Index}/{id?}");
 
 app.Run();

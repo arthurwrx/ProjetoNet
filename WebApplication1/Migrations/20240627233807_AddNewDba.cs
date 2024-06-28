@@ -6,11 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class AddModelsDb : Migration
+    public partial class AddNewDba : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "TB_COLETA_MODEL",
+                columns: table => new
+                {
+                    DiaColetaId = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    DataHora = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Bairro = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    TipoColeta = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_COLETA_MODEL", x => x.DiaColetaId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "TB_DIA_COLETA",
                 columns: table => new
@@ -108,6 +123,9 @@ namespace WebApplication1.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TB_COLETA_MODEL");
+
             migrationBuilder.DropTable(
                 name: "TB_NOTIFICACAO");
 

@@ -8,6 +8,6 @@ namespace WebApplication1.Services
         ColetaModel GetById(int DiaColetaId);
         void Add(ColetaModel coletaModel);
         void Update(ColetaModel coletaModel);
-        void Delete(ColetaModel coletaModel);
+        void Delete(int DiaColetaId);
     }
 }

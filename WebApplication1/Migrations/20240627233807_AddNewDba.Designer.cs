@@ -12,18 +12,40 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240625223551_AddModelsDb")]
-    partial class AddModelsDb
+    [Migration("20240627233807_AddNewDba")]
+    partial class AddNewDba
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("WebApplication1.Models.ColetaModel", b =>
+                {
+                    b.Property<int>("DiaColetaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiaColetaId"));
+
+                    b.Property<string>("Bairro")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<string>("TipoColeta")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.HasKey("DiaColetaId");
+
+                    b.ToTable("TB_COLETA_MODEL", (string)null);
+                });
 
             modelBuilder.Entity("WebApplication1.Models.DiaColeta", b =>
                 {

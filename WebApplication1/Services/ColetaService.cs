@@ -12,29 +12,21 @@ namespace WebApplication1.Services
             _repository = repository;
         }
 
-        public void Add(ColetaModel coletaModel)
+        public void Add(ColetaModel coletaModel) => _repository.Add(coletaModel);
+
+        public void Delete(int DiaColetaId)
         {
-            throw new NotImplementedException();
+            var coleta = _repository.GetById(DiaColetaId);
+            if (coleta != null)
+            {
+                _repository.Delete(coleta);
+            }
         }
 
-        public void Delete(ColetaModel coletaModel)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<ColetaModel> GetAll() => _repository.GetAll();  
 
-        public IEnumerable<ColetaModel> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public ColetaModel GetById(int DiaColetaId) => _repository.GetById(DiaColetaId);
 
-        public ColetaModel GetById(int DiaColetaId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(ColetaModel coletaModel)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(ColetaModel coletaModel) => _repository.Update(coletaModel);
     }
 }

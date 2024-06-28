@@ -15,8 +15,12 @@ namespace WebApplication1.Data
         {
         }
 
-        protected DatabaseContext()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseOracle("Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.fiap.com.br)(PORT=1521)))(CONNECT_DATA=(SID=orcl)));Persist Security Info=True;User ID=98398;Password=070105;Pooling=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +30,12 @@ namespace WebApplication1.Data
             {
                 entity.ToTable("TB_DIA_COLETA");
                 entity.HasKey(e => e.DiaDeColetaId);
+            });
+
+            modelBuilder.Entity<ColetaModel>(entity =>
+            {
+                entity.ToTable("TB_COLETA_MODEL");
+                entity.HasKey(e => e.DiaColetaId);
             });
 
             // Configuração da entidade Morador
